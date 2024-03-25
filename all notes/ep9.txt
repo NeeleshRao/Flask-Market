@@ -1,0 +1,26 @@
+In the routes.py file:
+
+to access the registration page and it's elements -
+
+if form.validate_on_submit() --> ensures that the actions take place only on submitting the form.
+
+to protect the information when travelling from host to client and vide versa, 
+Flask provides a safety feature.
+
+just below the form declaration tag,
+{{ form.hidden_tag() }} --> This generates a random token
+
+It is important to perform flask validations for the form data:
+
+from wtforms.validators import Length, EqualTo
+
+in the forms.py file
+add validators like--
+validators=Length(min=2, max = 30) or validators=EqualTo('password1')
+
+Multiple validators can be put together in a list
+
+If any of the validations fail, it will not enter the validate_on_submit part, instead it will be 
+stored in the form of a dictionary form.errors
+
+So just check that form.errors != {}

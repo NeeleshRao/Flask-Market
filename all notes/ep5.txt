@@ -1,0 +1,65 @@
+pip install flask-alchemy
+this library allows to create and manage databses from python files using classes.
+
+from flask_sqlalchemy import SQLAlchemy --> import it after installing.
+
+db = SQLAlchemy(app) -->this is to create instance of the database that can interact with the flask object
+(app in this case)
+
+We need to define classes that will interact with the database, thses classes are called models.
+To create instance of the class -
+class Item(db.Model) --> Inherit from the model of database, as this class will be used to define the products 
+in the database.
+
+in the class we have to initialize the various columns.
+eg--
+name = db.column(db.String(length=100), nullable=False, unique=True, primary_key=True)
+for integer, do db.Integer() instead of String.
+
+
+app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///market.db" --> Put this statement below the app=Flask(__name__)
+This is needed for the flask to identify the database to be used.
+URI--Uniform Resource Identifier
+
+To create the db file,
+open the python prompt in cmd by typing python +ENTER
+>>from market import db #here market can be replaced by the necessary python file name
+
+to create the database type
+>>db.create_all()
+
+next, we need to initialize the class and the objects associated with it
+from market import Item #market-file name, Item-class name
+item1=Item(name="item_name", price=1000, ......)
+
+we don't have to input the id as it is the primary key. So, if we are entering the first element in the database, 
+id=1, for second id=2 and so on.
+
+to add to the database
+db.session.add(item1)
+db.session.commit()
+
+to check all the things in the database,
+
+Item.query.all() # where item is the name of the class
+
+to print out the contents using the loop--do
+for item in Item.query.all():
+	item.name
+	item.price
+...
+...
+
+to filter the output based on a particular column,
+Item.query.filter_by(price=500).all()  -->this will return a list with the objects
+
+or
+
+for item in Item.query.filter_by(price=500):
+	print(item.name)
+
+
+
+
+
+

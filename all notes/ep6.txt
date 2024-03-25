@@ -1,0 +1,64 @@
+we need to create new python files:
+models.py --> to store the various database models and routes.py --> to store the different routes
+
+Circular imports: When you try and import from 2 different files into each other, forbidden in python.
+
+So to get over this, we need to create packages, which is a file from where everything can be imported.
+
+In the main folder, create a python file named run.
+
+to that copy the import stuff and the initialization stuff.
+i.e.
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///market.db"
+db = SQLAlchemy(app)
+
+then create a new directory called market/anything.
+move all the files other than the run.py into it.
+
+Then move the initialization stuff into the special __init__.py file, which is what is needed by
+any python package.
+It defines the directory it is in as a package.
+
+Put --
+
+from flask import Flask, render_template
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI']="sqlite:///market.db"
+db = SQLAlchemy(app)
+
+-- into the init file.
+
+this will make the directory into a python package.
+
+Next to make the run python file,
+do --
+from market import app
+app.run(debug = True)
+
+so, from now on to run the website all we need to type in the terminal is :
+python run.py
+
+
+Last, we have to apply final fixes.
+To make the __init__.py recognize the routes in the routes.py folder,
+
+in the init file type-
+from market import routes
+
+in the routes file type:
+from market import app
+from flask import render_template
+from market.models import Item
+
+
+In the models.py file :
+
+from market import db
+
+

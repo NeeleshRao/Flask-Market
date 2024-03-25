@@ -1,0 +1,16 @@
+Flask provides flash that will provide pop-up messages for the users.
+
+from flask import flash
+Instead of printing the error in server side, do
+flash("Error message ")
+
+To display flash messages, we have to put it in the base.html.
+Basically, we have to assign the area for showing the flashed messages.
+
+Put it below the navbar
+{% with messages = get_flashed_messages( with_categories=true ) %}
+
+It is important to check if the username entered in the registration form is unique
+
+FlaskForm checks if any functions start with validate_ and the part after this also is read
+and it validates it by itself.

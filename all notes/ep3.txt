@@ -1,0 +1,28 @@
+Jinja allows python web frameworks to directly send data to the html documents
+
+Eg, we can put some text in a paragraph tag in html doc, using jinja syntax:
+<p>{{item_name}}</p>
+where the item_name will be passed as another argument in the render_template function in the main python file.
+return render_template("thefile.html", item_name="Chair")
+
+Jinja
+{% %}--> means a logical expression is placed inside
+{{}} --> is used for variable printing
+
+for loop in jinja
+eg:
+{% for i in items %}
+               <tr>
+                    <td>{{i.id}}</td>
+                    <td>{{i.name}}</td>
+                    <td>{{i.barcode}}</td>
+                    <td>{{i.price}}</td>
+                </tr>
+            {% endfor %}
+
+
+btn-info: blue colour
+btn-succcess: green colour
+
+to create a button in html using bootstrap properties:
+<button class="btn btn-outline btn-info">More Info</button>

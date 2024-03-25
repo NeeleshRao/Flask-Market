@@ -1,0 +1,80 @@
+Creating a user database
+
+id is compulsary when u create a database using flask
+
+Sometimes, we need to give how each model is related to another.
+For example, in the market website, each user will be owning certain products. So, there should be a link between 
+User and Item class.
+
+Also, we need a way to find the owner of a particular product, this is called back-referencing.
+
+items = db.relationship('Item', backref="owned_user", lazy=True) --> this should be put in the User class.
+lazy=True makes the sqlalchemy link all the users in one shot.
+
+next, in the Item class, we need to add a column called owner, which is a foreign key and references the main user 
+table.
+owner = db.Column(db.Integer(), db.ForeignKey('user.id')) --> This column will reference the id column of 
+the main table.
+
+Next, we need to create the tables from the prompt.
+so go terminal and type python
+>> from market.models import db
+>> db.drop_all()
+
+This will delete all the tables, columns and everything from the database, for a clean start.
+to freshly create everything:
+>> db.create_all()
+
+
+>> from market.models import User, Item
+>> u1 = User(username="jsc", password_hash='1234567', email_address="jsc@jsc.com") --> To create th eoccurence of 
+user in the User table.
+>> db.session.add(u1)
+>> db.session.commit()
+
+To check all the users in the table,
+>> User.query.all()
+
+Next, add data to the Item database.
+>> i1 = Item(name='Iphone 10', price=800, barcode = '112345678910', description ='Description for Iphone 10' )  
+>>> db.session.add(i1)
+>>> db.session.commit()
+
+>>> i2 = Item(name='Lenovo Laptop', price=1200, barcode = '987654321104', description ='Description for Lenovo Laptop' )   
+>>> db.session.add(i2)  
+>>> db.session.commit()
+
+To verify, >>> Item.query.all()
+
+Next, we have to assign owners for the items.
+
+For this
+>>item1 = Item.query.filter_by(name="Iphone 10").first() --> return the actual object, if we skip first, it will
+return the base object.
+
+Next, if we try and assign like this,
+>> item1.owner = User.query.filter_by(username="jsc").first()
+
+it will give an error, as we cannot use any other field than id, as the owner column will accept only id of the
+user table.
+
+
+>> db.session.rollback()
+
+This will roll back the previous changes and commits.
+
+item1.owner = User.query.filter_by(username='jsc').first().id
+db.session.add(item1)
+ db.session.commit()
+
+>>> item1.owner
+1
+
+To do the backreference, i.e. to see the owner of the item,
+
+>> i = Item.query.filter_by(name="Iphone 10").first()
+>> i.owned_user
+
+
+
+

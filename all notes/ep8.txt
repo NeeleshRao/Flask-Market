@@ -1,0 +1,56 @@
+To create dynamic forms with flask :
+>> pip install flask-wtf
+>> pip install wtforms
+Create a new python file -- forms.py
+
+from flask_wtf import FlaskForm
+from wtforms import StringField, PasswordField
+
+class RegistrationForm(FlaskForm):
+    username = StringField(label="username")
+    email_address = StringField(label="email")
+    password1 = PasswordField(label="password1")
+    password2 = PasswordField(label="password2")
+    submit = SubmitField(label='submit')
+
+
+Next, we have to create a route for this form.
+from market.forms import RegistrationForm\
+
+@app.route("/register")
+def register_page():
+    form = RegistrationForm()
+    return render_template("register.html", form = form)
+
+next create an html file, called register.html, and remember to use jinja syntax.
+
+It is very important to generate a secret key, fpor displaying forms.
+
+Go to the python prompt and type this.
+>>> import os
+>>> os.urandom(12).hex()
+'2798397170021b1e87fc9401'
+
+That is the secret key generated.
+
+Go to __init__.py and use the app.config
+
+app.config['SECRET_KEY'] = '2798397170021b1e87fc9401'
+
+Next, we have to create the register.html.
+In the content block, put :
+
+<div class="container">
+    <form method="POST" class="form-register" style="color: white;">
+        {{ form.username.label()}}
+        {{ form.username(class = 'form-control', placeholder = "Enter UserName") }}
+    </form>
+</div>
+
+POST method is used whenever there are some changes/interactions to be made in the database.
+
+The rest focusses on creating the register.html page
+
+
+
+

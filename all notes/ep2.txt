@@ -1,0 +1,24 @@
+Templates are used to keep the html files separately, and use them as and when required, as we cannot store 
+all of them in a string.
+
+Correct practice is to store all the html files in a 'templates' folder in the same directory 
+as the main python app file.
+
+return render_template('file_name.html')
+
+For the html base page along with bootsrap and other necessary stuff, go to bootstrap starter template, and
+edit the version to whatever is needed(4.5), and copy-paste the code into the home/base html page.
+
+To create multiple routes, i.e. if we want two different url's using the same function/performing the same action:
+@app.route('/')
+@app.route('/home')
+just place them below each other.
+
+to set dark mode:
+after the closing body tag, put
+<style>
+    body{
+        background-color: #212121;
+        color: white;
+    }
+</style>

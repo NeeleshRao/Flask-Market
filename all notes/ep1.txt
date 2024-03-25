@@ -1,0 +1,34 @@
+Setting up the environment :
+1- mkdir wherever needed
+2- pip install flask
+3- flask --version
+
+Create a new file/ the main app(python file).
+Create a minimal application.
+@app.route() --> decorator
+
+route : What url should the following actions be performed on
+/ : root url of the website
+
+To setup the app:
+1. set FLASK_APP=market.py , here the market.py should be replaced by the main python file.
+2. flask run
+
+(or)
+
+1. do -->python app.py in the cmd, where app is replaced by the correct python app file name.
+
+To turn on debug mode(continually refreshes the server on reloading, so that we don't have to manually do it) :
+set FLASK_DEBUG=1
+
+To create dynamic routes:
+We cannot always know/ cannot hardcode the urls, for eg-facebook will not know the url pages for all it's customers.
+Here, dynamic routing is used.
+
+@app.route("/about/<username>")
+def about_page(username):
+    return f"<h1>This page is about user : {username} </h1>"
+
+
+
+

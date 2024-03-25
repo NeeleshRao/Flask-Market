@@ -1,0 +1,26 @@
+Template inheritance using jinja:
+Allows to have a base html that will be common across all pages designed, by simple inheritance 
+wherever required.
+
+The way to extend the base template to a derived webpage:
+{% extends 'base.html' %}
+
+We can create blocks in the base html, so that different web-pages can place different content in them.
+in the base html,
+
+{% block title %}
+{% endblock %}
+
+In the derived/dynamic webpage,
+{% block title %}
+	Title for the webpage.
+{% endblock %}
+
+jinja also offers way of pointing to url's which can be used in navbar.
+we can do--
+<a href="{{url_for('home_page')}}"......
+instead of hardcoding the url for the home page, this way even if the url
+name changes, the function name associated with it will not change, so it makes this dynamic.
+
+
+

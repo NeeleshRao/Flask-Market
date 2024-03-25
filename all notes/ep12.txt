@@ -1,0 +1,30 @@
+
+Many libraries have to be installed for the login system.
+
+pip install flask_login
+
+In the init.py file
+
+from flask_login import LoginManager
+login_manager = LoginManager(app)
+
+User_loader exception:
+
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.get(user_id)
+
+Paste this in models.py
+
+from flask_login import UserMixin --> This will take care of some things we need to code to ensure
+that the user is logged in across all webpages.
+
+This is to clear the database
+
+>>> from market.models import User
+>>> from market import db
+>>> db.drop_all()
+>>> db.session.commit()
+>>> db.create_all()
+>>> db.session.commit()

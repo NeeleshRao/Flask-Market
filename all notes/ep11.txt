@@ -1,0 +1,29 @@
+
+This is needed to store the passwords securely
+pip install flask_bcrypt
+
+In the init.py file,
+from flask_bcrypt import Bcrypt
+Next, we have to initialize it in the inint.py file
+
+bcrypt = Bcrypt(app)
+
+Getters and setters will help us change how we recieve an attribute in OOP.
+
+So, we need to make changes in the models.py file.
+
+from market import bcrypt
+
+@property
+def password(self):
+	return self.password
+
+@password.setter
+def password(self, plain_text_password):
+	self.password_hash = bcrypt.generate_password_hash(plain_text_password).decode('UTF-8')
+
+In the routes.py, go to the place where we have initialised the user class.
+and instead of password_hash, change it to password.
+
+
+Next, we have to create login forms..
